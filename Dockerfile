@@ -1,9 +1,6 @@
-FROM mysql:8.0.33-debian
+FROM mysql:8.0.33
 
-# Add missing GPG key for MySQL repo
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
-
-RUN apt-get update && apt-get install -y netcat
+RUN apk update && apk add netcat-openbsd
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
