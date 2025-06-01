@@ -1,4 +1,5 @@
 #!/bin/bash
+DB_HOST="mysq-on-render"
 
 # Wait until MySQL is accepting connections
 until mysqladmin ping -h "localhost" --silent; do
