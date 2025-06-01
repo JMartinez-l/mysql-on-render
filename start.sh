@@ -1,17 +1,15 @@
-#!/bin/bash
+FROM ubuntu:22.04
 
-# Start MySQL in the background
-docker-entrypoint.sh mysqld &
+# Install MySQL and netcat
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server netcat && \
+    apt-get clean
 
-# Wait for MySQL to be ready
-until mysqladmin ping -h "127.0.0.1" --silent; do
-  echo "Waiting for MySQL to start..."
-  sleep 2
-done
+# Copy start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-echo "MySQL is up."
+# Expose MySQL and fake HTTP server port
+EXPOSE 3306 10000
 
-# Launch a simple HTTP server on port 10000
-# So Render sees an open port and marks the service as "live"
-echo "Starting dummy HTTP server on port 10000..."
-python3 -m http.server 10000
+CMD ["sh", "/start.sh"]
