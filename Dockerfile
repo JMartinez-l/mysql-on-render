@@ -7,4 +7,4 @@ RUN chmod +x /start.sh
 # Expose MySQL and dummy HTTP port
 EXPOSE 3306 10000
 
-CMD ["/start.sh"
+CMD ["sh", "/start.sh"]
