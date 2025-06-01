@@ -1,5 +1,10 @@
 #!/bin/bash
 
-docker-entrypoint.sh mysqld &
+# Wait until MySQL is accepting connections
+until mysqladmin ping -h "localhost" --silent; do
+  echo "Waiting for MySQL to start..."
+  sleep 2
+done
 
-while true; do echo -e "HTTP/1.1 200 OK\n\nMySQL is running" | nc -1k -p $PORT; done
+# Start MySQL server (if needed) or your app here
+exec "$@"
