@@ -1,5 +1,5 @@
 #!/bin/bash
-DB_HOST="mysq-on-render"
+DB_HOST="https://mysql-on-render-mvio.onrender.com"
 
 # Wait until MySQL is accepting connections
 until mysqladmin ping -h "localhost" --silent; do
